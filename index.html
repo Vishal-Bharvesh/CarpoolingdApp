@@ -1,0 +1,117 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+  
+    <!-- Web3.js-->
+  <script src="node_modules/web3.js-browser/build/web3.js"></script>
+  <script src="node_modules/web3/dist/web3.min.js"></script>
+  <script src="web3connection.js"></script> 
+  <link rel="stylesheet" href="style.css" />
+    <script>
+
+        $(document).ready(function(){
+           
+                                  
+            $("#btn_action").click(function(){
+        
+                //Cookies.set()
+                //alert("working");
+
+                var hashcode=$("#hashaddressdp").val();
+				
+				myContract.methods.loginPanel(hashcode).call().then(
+						function(returndata){
+							if(returndata[1]==1)
+							{
+								uname=returndata[0];
+								Cookies.set('hashcodecp',hashcode,{expires : 14});
+                				Cookies.set('usernamecp',uname,{expires : 14});
+        				        window.location.replace('dashboard.html');
+							}	
+							else{
+								alert("User Account Not Found");
+							}
+
+    						}
+							);
+	
+                
+        
+            });
+        
+            $("#btn_action2").click(function(){
+        
+        //Cookies.set()
+        //alert("working");
+
+        var hashcode=$("#hashaddresspp").val();
+        
+        myContract.methods.loginPanel(hashcode).call().then(
+                function(returndata){
+                    if(returndata[1]==1)
+                    {
+                        uname=returndata[0];
+                        Cookies.set('hashcodecp',hashcode,{expires : 14});
+                        Cookies.set('usernamecp',uname,{expires : 14});
+                        window.location.replace('dashboardpassenger.html');
+                    }	
+                    else{
+                        alert("User Account Not Found");
+                    }
+
+                    }
+                    );
+
+        
+
+    });
+
+        });
+        
+        
+        </script>
+
+
+</head>
+<body>
+<h1>CarPooling - Login Panel</h1>
+
+<div align="right"><a href='newuser.html'>New User?</a></div>
+
+
+<fieldset>
+    <legend> User - Driver Panel</legend>
+<form id=form1>
+
+<div>
+    <span class="title">User Address</span>
+    <input type="text" id="hashaddressdp" placeholder="Write Here" />
+</div>
+<br />
+<div>
+    <span class="title"></span>
+    <input type="button" id="btn_action" value="Log-in as Driver" />
+</div>
+</form>
+</fieldset>
+
+<fieldset>
+    <legend> User - Passenger Panel</legend>
+<form id=form2>
+
+<div>
+    <span class="title">User Address</span>
+    <input type="text" id="hashaddresspp" placeholder="Write Here" />
+</div>
+<br />
+<div>
+    <span class="title"></span>
+    <input type="button" id="btn_action2" value="Log-in as Passanger" />
+</div>
+</form>
+</fieldset>
+
+</body>
+
+</html>
